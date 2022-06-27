@@ -1,27 +1,25 @@
-import React from 'react';
+import React from "react";
 
-
-const Users = ({ users, userId })=> {
+const Users = ({ users, userId, deleteUser }) => {
   return (
-    <ul>
-      <li className={ !userId ? 'selected': ''}>
-        <a href='#'>Users</a>
-      </li>
-      {
-        users.map( user => {
-          return (
-            <li className={ user.id === userId*1 ? 'selected': ''} key={ user.id }>
-              <a href={`#${user.id}`}>
-                { user.name }
-              </a>
-            </li>
-          );
-        })
-      }
+    <ul className="userList">
+      {users.map((user) => {
+        return (
+          <li
+            className={`userListItem ${
+              user.id === userId * 1 ? "selected" : ""
+            }`}
+            key={user.id}
+          >
+            <a href={`#${user.id}`}>{user.name}</a>
+            <button className="userDeleteBtn" onClick={() => deleteUser(user)}>
+              X
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
-}
+};
 
 export default Users;
-
-

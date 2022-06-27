@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  height: 5rem;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* .userList {
+  border: 10px solid;
+} */
+
+.userListItem {
+  height: 2rem;
+  width: 15rem;
+  margin: 1rem;
+  /* padding: 5px; */
+  text-align: center;
+  border: 2px solid;
+  border-radius: 10px;
+  position: relative;
+  border-color: black;
+}
+
+a {
+  color: black;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+}
+.selected {
+  background-color: yellow;
+  border-color: red;
+}
+
+button {
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 2px 10px;
+  border-color: black;
+}
+
+.userDeleteBtn {
+  height: 2rem;
+  position: absolute;
+  right: 0px;
+  border-radius: 5px;
+}
+
+.userStory {
+  border: 2px solid;
+  border-radius: 10px;
+  margin-top: 1rem;
+  padding: 0rem 1rem 1.5rem 1rem;
+}
+
+.userStoryTitle {
+  font-size: medium;
+  padding: 1rem 0rem 1rem 0rem;
+}
+
+.storyHead {
+  display: flex;
+}
