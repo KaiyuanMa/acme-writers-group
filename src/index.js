@@ -1,75 +1,49 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { render } from "react-dom";
-import axios from "axios";
+const axios = require("axios");
 import Users from "./Users";
 import User from "./User";
+import { fetchStories, fetchUsers, deleteUser } from "./api";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-      userId: "",
-      currentUser: {},
-      stories: [],
-    };
-    this.deleteUser = this.deleteUser.bind(this);
-    this.deleteStory = this.deleteStory.bind(this);
-  }
-  async componentDidMount() {
-    try {
+function App() {
+  const [users, setUsers] = useState([]);
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    const load = async () => {
+      const response = await fetchUsers();
+      setUsers(response.data);
       const userId = window.location.hash.slice(1);
-      this.setState({ userId });
-      const response = await axios.get("/api/users");
-      this.setState({ users: response.data });
-      window.addEventListener("hashchange", async () => {
+      setUserId(userId);
+      window.addEventListener("hashchange", () => {
         const userId = window.location.hash.slice(1);
-        this.setState({ userId });
-        const stories = await axios.get(`/api/users/${userId}/stories`);
-        this.setState({ stories: stories.data });
-        const currentUser = await axios.get(`/api/users/${userId}`);
-        this.setState({ currentUser: currentUser.data });
+        setUserId(userId);
       });
-    } catch (ex) {
-      console.log(ex);
-    }
-  }
+    };
+    load();
+  }, []);
 
-  async deleteUser(user) {
-    await axios.delete(`/api/users/${user.id}`);
-    const users = this.state.users.filter((_user) => _user.id !== user.id);
-    this.setState({ users });
-    this.setState({ userId: "" });
-  }
+  const deleteAUser = async (user) => {
+    await deleteUser(user);
+    window.location = "/";
+  };
 
-  async deleteStory(story) {
-    const storyId = story.id;
-    await axios.delete(`/api/users/${story.userId}/stories/${story.id}`);
-    const stories = this.state.stories.filter(
-      (_story) => _story.id !== storyId
-    );
+  const createAStory = async (user) => {
+    const story = await createStory(user.id);
+    const stories = [...this.state.stories, story];
     this.setState({ stories });
-  }
-
-  render() {
-    const { users, userId, stories, currentUser } = this.state;
-    return (
-      <div>
-        <h1>Acme Writers Group ({users.length})</h1>
-        <main>
-          <Users users={users} userId={userId} deleteUser={this.deleteUser} />
-          {userId ? (
-            <User
-              user={currentUser}
-              stories={stories}
-              deleteStory={this.deleteStory}
-            />
-          ) : null}
-        </main>
-      </div>
-    );
-  }
+  };
+  return (
+    <div>
+      <h1>Acme Writers Group ({users.length})</h1>
+      <main>
+        <Users users={users} userId={userId} deleteUser={deleteAUser} />
+        {userId ? <User userId={userId} /> : null}
+      </main>
+    </div>
+  );
 }
 
 const root = document.querySelector("#root");
-render(<App />, root);
+ReactDOM.render(<App />, root);

@@ -5,6 +5,8 @@ const path = require("path");
 
 app.use("/dist", express.static("dist"));
 app.use("/public", express.static("assets"));
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
 app.get("/api/users", async (req, res, next) => {
@@ -35,6 +37,10 @@ app.get("/api/users/:id/stories", async (req, res, next) => {
       where: {
         userId: req.params.id,
       },
+      order: [
+        ["favorite", "DESC"],
+        ["id", "ASC"],
+      ],
     });
     res.send(stories);
   } catch (ex) {
@@ -44,9 +50,7 @@ app.get("/api/users/:id/stories", async (req, res, next) => {
 
 app.post("/api/users", async (req, res, next) => {
   try {
-    res
-      .status(201)
-      .send(await User.create({ name: req.params.name, bio: req.params.bio }));
+    res.status(201).send(await User.create(req.params.body));
   } catch (ex) {
     next(ex);
   }
@@ -67,6 +71,24 @@ app.delete("/api/users/:UserId/stories/:StoryId", async (req, res, next) => {
     const story = await Story.findByPk(req.params.StoryId);
     await story.destroy();
     res.sendStatus(204);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+app.put("/api/users/:UserId/stories/:StoryId", async (req, res, next) => {
+  try {
+    await Story.update(req.body, { where: { id: req.params.StoryId } });
+    console.log(req.body);
+    res.sendStatus(200);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+app.post("/api/users/:UserId/stories", async (req, res, next) => {
+  try {
+    res.status(201).send(await Story.create(req.params.story));
   } catch (ex) {
     next(ex);
   }
