@@ -2,23 +2,33 @@ import React from "react";
 
 const Users = ({ users, userId, deleteUser }) => {
   return (
-    <ul className="userList">
-      {users.map((user) => {
-        return (
-          <li
-            className={`userListItem ${
-              user.id === userId * 1 ? "selected" : ""
-            }`}
-            key={user.id}
-          >
-            <a href={`#${user.id}`}>{user.name}</a>
-            <button className="userDeleteBtn" onClick={() => deleteUser(user)}>
-              X
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    <div>
+      <ul className="userList">
+        {users.map((user) => {
+          return (
+            <div className="userContainer">
+              <button
+                className={`userListItem ${
+                  user.id === userId * 1 ? "selected" : ""
+                }`}
+                key={user.id}
+                onClick={() => {
+                  location.hash = user.id;
+                }}
+              >
+                {user.name}
+              </button>
+              <button
+                className="userDeleteBtn"
+                onClick={() => deleteUser(user)}
+              >
+                X
+              </button>
+            </div>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 

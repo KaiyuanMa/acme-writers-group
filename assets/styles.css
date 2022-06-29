@@ -15,17 +15,6 @@ h1 {
 li {
   list-style-type: none;
 }
-.userListItem {
-  height: 2rem;
-  width: 15rem;
-  margin: 1rem;
-  /* padding: 5px; */
-  text-align: center;
-  border: 2px solid;
-  border-radius: 10px;
-  position: relative;
-  border-color: black;
-}
 
 a {
   color: black;
@@ -33,14 +22,12 @@ a {
 
 a:link {
   text-decoration: none;
+  display: block;
+  transition-duration: 0.4s;
 }
 
 main {
   display: flex;
-}
-.selected {
-  background-color: yellow;
-  border-color: red;
 }
 
 button {
@@ -62,7 +49,8 @@ button:hover {
 .userDeleteBtn {
   height: 2rem;
   position: absolute;
-  right: 0px;
+  right: 1.4rem;
+  top: 0px;
   border-radius: 5px;
 }
 
@@ -118,4 +106,46 @@ button:hover {
 
 .storyHead {
   display: flex;
+}
+
+/* Please take a look if you have time */
+/* .userList {
+  overflow-y: auto;
+} */
+
+.userContainer {
+  position: relative;
+  width: 17rem;
+}
+
+.userListItem {
+  height: 2rem;
+  width: 12rem;
+  margin: 1rem;
+  text-align: center;
+  border: 1.5px solid;
+  border-radius: 10px;
+  position: relative;
+  border-color: black;
+  transition-duration: 0.4s;
+  display: block;
+  background-color: white;
+  color: black;
+}
+
+.userListItem:hover {
+  background-color: black;
+  color: white;
+}
+.userListItem a {
+  display: block;
+  padding: 5px;
+  border-radius: 10px;
+  height: 2rem;
+  width: 10rem;
+}
+
+.selected {
+  background-color: black;
+  color: white;
 }
