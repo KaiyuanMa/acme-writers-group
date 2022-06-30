@@ -1,9 +1,12 @@
 import React, { Component, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { render } from "react-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 const axios = require("axios");
 import Users from "./Users";
 import User from "./User";
+import CreateUser from "./CreateUser";
+import CreateStory from "./CreateStory";
 import { fetchStories, fetchUsers, deleteUser } from "./api";
 
 function App() {
@@ -46,4 +49,13 @@ function App() {
 }
 
 const root = document.querySelector("#root");
-ReactDOM.render(<App />, root);
+ReactDOM.render(
+  <BrowserRouter>
+    <Routes>
+      <Route exact path="/" element={<App />} />
+      <Route path="/createUser" element={<CreateUser />} />
+      <Route path="/createStory" element={<CreateStory />} />
+    </Routes>
+  </BrowserRouter>,
+  root
+);

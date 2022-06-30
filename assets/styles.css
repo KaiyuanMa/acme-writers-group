@@ -49,7 +49,7 @@ button:hover {
 .userDeleteBtn {
   height: 2rem;
   position: absolute;
-  right: 1.4rem;
+  right: 0.6rem;
   top: 0px;
   border-radius: 5px;
 }
@@ -88,6 +88,14 @@ button:hover {
   border: #f44336 solid;
 }
 
+.new-user-btn {
+  border-radius: 10px;
+  width: 18rem;
+  height: 2rem;
+  margin: 10px;
+  margin-bottom: 5px;
+}
+
 .dislike-btn:hover {
   color: #f44336;
 }
@@ -108,19 +116,36 @@ button:hover {
   display: flex;
 }
 
-/* Please take a look if you have time */
-/* .userList {
-  overflow-y: auto;
-} */
+.userList {
+  height: 150vh;
+  border: 2px solid black;
+  border-radius: 10px;
+  display: block;
+  overflow-y: scroll;
+  scroll-margin-right: 10px;
+  margin: 10px;
+}
+
+.userList::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.userList::-webkit-scrollbar-thumb {
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: #aaaaaa;
+}
 
 .userContainer {
   position: relative;
   width: 17rem;
+  display: block;
 }
 
 .userListItem {
   height: 2rem;
-  width: 12rem;
+  width: 13rem;
   margin: 1rem;
   text-align: center;
   border: 1.5px solid;
@@ -148,4 +173,72 @@ button:hover {
 .selected {
   background-color: black;
   color: white;
+}
+
+.create-user-form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.create-user-form label {
+  text-align: left;
+  display: block;
+}
+
+.create-user-form input,
+.create-user-form textarea {
+  width: 100%;
+  padding: 6px 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: block;
+  resize: none;
+  transition-duration: 0.4s;
+}
+.create-user-form textarea {
+  height: 10rem;
+}
+
+.create-user-form input:focus,
+.create-user-form textarea:focus {
+  outline: none !important;
+  /* border: 1px solid black; */
+  box-shadow: 0 0 10px black;
+}
+
+.create-btn {
+  border-radius: 5px;
+  height: 2rem;
+  width: 10rem;
+}
+
+.home-btn {
+  border-radius: 5px;
+  height: 2rem;
+  width: 5rem;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.bio-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.user-detail-head {
+  display: flex;
+}
+
+.new-story-btn {
+  border-radius: 15px;
+  width: 10rem;
+  height: 3rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
 }

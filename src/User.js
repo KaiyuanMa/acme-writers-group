@@ -7,7 +7,7 @@ import {
   addStory,
   updateStory,
 } from "./api";
-// import { AsyncDependenciesBlock } from "webpack";
+import { useNavigate } from "react-router-dom";
 
 const User = ({ userId }) => {
   const [user, setUser] = useState({});
@@ -39,10 +39,21 @@ const User = ({ userId }) => {
     const storiesResponse = await fetchStories(userId);
     setStories(storiesResponse.data);
   };
+  const navigate = useNavigate();
+  function handelClick() {
+    navigate("/createStory", { state: { userId: userId } });
+  }
   return (
     <div>
-      Details for {user.name}
-      <p>{user.bio}</p>
+      <div className="user-detail-head">
+        <div>
+          <p className="bio-title">{user.name}</p>
+          <p>{user.bio}</p>
+        </div>
+        <button className="new-story-btn" onClick={handelClick}>
+          New Story
+        </button>
+      </div>
       <ul>
         {stories.map((story) => {
           return (
@@ -76,26 +87,3 @@ const User = ({ userId }) => {
   );
 };
 export default User;
-
-// constructor() {
-//   super();
-//   this.state = {
-//     user: {},
-//     stories: [],
-//   };
-//   this.deleteStory = this.deleteStory.bind(this);
-// }
-// async componentDidMount() {
-//   let response = await axios.get(`/api/users/${this.props.userId}`);
-//   this.setState({ user: response.data });
-//   response = await axios.get(`/api/users/${this.props.userId}/stories`);
-//   this.setState({ stories: response.data });
-// }
-// async componentDidUpdate(prevProps) {
-//   if (prevProps.userId !== this.props.userId) {
-//     let response = await axios.get(`/api/users/${this.props.userId}`);
-//     this.setState({ user: response.data });
-//     response = await axios.get(`/api/users/${this.props.userId}/stories`);
-//     this.setState({ stories: response.data });
-//   }
-// }

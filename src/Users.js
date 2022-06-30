@@ -1,8 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Users = ({ users, userId, deleteUser }) => {
+  const navigate = useNavigate();
+  function handelClick() {
+    navigate("/createUser");
+  }
   return (
     <div>
+      <button className="new-user-btn" onClick={handelClick}>
+        New User
+      </button>
       <ul className="userList">
         {users.map((user) => {
           return (

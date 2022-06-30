@@ -9,6 +9,13 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.get("/createUser", (req, res) =>
+  res.sendFile(path.join(__dirname, "index.html"))
+);
+app.get("/createStory", (req, res) =>
+  res.sendFile(path.join(__dirname, "index.html"))
+);
+
 app.get("/api/users", async (req, res, next) => {
   try {
     res.send(
@@ -16,6 +23,7 @@ app.get("/api/users", async (req, res, next) => {
         attributes: {
           exclude: ["bio"],
         },
+        order: [["updatedAt", "DESC"]],
       })
     );
   } catch (ex) {
@@ -50,7 +58,7 @@ app.get("/api/users/:id/stories", async (req, res, next) => {
 
 app.post("/api/users", async (req, res, next) => {
   try {
-    res.status(201).send(await User.create(req.params.body));
+    res.status(201).send(await User.create(req.body));
   } catch (ex) {
     next(ex);
   }
@@ -88,7 +96,9 @@ app.put("/api/users/:UserId/stories/:StoryId", async (req, res, next) => {
 
 app.post("/api/users/:UserId/stories", async (req, res, next) => {
   try {
-    res.status(201).send(await Story.create(req.params.story));
+    res
+      .status(201)
+      .send(await Story.create({ userId: req.params.UserId }, req.body));
   } catch (ex) {
     next(ex);
   }
